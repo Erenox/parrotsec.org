@@ -1,0 +1,506 @@
+{
+  "Mirrors":
+  {
+    "Others":
+    [
+      {
+        "name": "sf",
+        "alias": ["sourceforge",""],
+        "location":"Mirrors",
+        "provider":"SourceForge",
+        "speed": "(*)",
+        "link": "https://sourceforge.net/projects/parrotsecurity/files",
+		"enabled": true
+      },
+      {
+        "name": "cloudflare",
+        "alias": ["cloudflare"],
+        "location":"CDN",
+        "provider":"Cloudflare",
+        "speed": "(*)",
+        "link": "http://cloudflare.archive.parrotsec.org/parrot/iso",
+		"enabled": true
+      }
+    ],
+    "USA":
+    [
+      {
+        "name": "mit",
+        "alias": ["mit","usa"],
+        "location":"Massachusetts",
+        "provider":"SIPB MIT",
+        "speed": "(1 Gbps)",
+        "link": "http://mit-usa.archive.parrotsec.org/parrot/iso",
+		"enabled": true
+      },
+      {
+        "name": "mtu",
+        "alias": ["mtu","usa2"],
+        "location":"Michigan",
+        "provider":"Michigan Tech",
+        "speed": "(1 Gbps)",
+        "link": "http://lug.mtu.edu/parrot/iso",
+		"enabled": true
+      },
+      {
+        "name": "jmu",
+        "alias": ["jmu","usa3"],
+        "location":"Virginia",
+        "provider":"JMU",
+        "speed": "(1 Gbps)",
+        "link": "http://mirror.jmu.edu/pub/parrot/iso",
+		"enabled": true
+      },
+      {
+        "name": "clarkson",
+        "alias": ["clarkson","usa4"],
+        "location":"New York",
+        "provider":"Clarkson",
+        "speed": "(1 Gbps)",
+        "link": "http://mirror.clarkson.edu/parrot/iso",
+		"enabled": true
+      },
+      {
+        "name": "berkeley",
+        "alias": ["berkeley","usa5"],
+        "location":"California",
+        "provider":"Berkeley",
+        "speed": "(1 Gbps)",
+        "link": "http://mirrors.ocf.berkeley.edu/parrot/iso",
+		"enabled": true
+      },
+      {
+        "name": "superb-dca2",
+        "alias": ["superb-dca2"],
+        "location":"Virginia",
+        "provider":"Superb-dca2-sf",
+        "speed": "(?)",
+        "link": "http://superb-dca2.dl.sourceforge.net/project/parrotsecurity",
+		"enabled": true
+      },
+      {
+        "name": "superb-dca3",
+        "alias": ["superb-dca3"],
+        "location":"Virginia",
+        "provider":"Superb-dca3-sf",
+        "speed": "(?)",
+        "link": "http://superb-dca3.dl.sourceforge.net/project/parrotsecurity",
+		"enabled": true
+      },
+      {
+        "name": "colocrossing",
+        "alias": ["colocrossing"],
+        "location":"New York",
+        "provider":"Colocrossing-sf",
+        "speed": "(?)",
+        "link": "http://colocrossing.dl.sourceforge.net/project/parrotsecurity",
+		"enabled": true
+      },
+      {
+        "name": "pilotfiber",
+        "alias": ["pilotfiber"],
+        "location":"New York",
+        "provider":"PilotFiber-sf",
+        "speed": "(?)",
+        "link": "http://pilotfiber.dl.sourceforge.net/project/parrotsecurity",
+		"enabled": true
+      },
+      {
+        "name": "superb-sea2",
+        "alias": ["superb-sea2"],
+        "location":"Washington",
+        "provider":"Superb-sea2-sf",
+        "speed": "(?)",
+        "link": "http://superb-sea2.dl.sourceforge.net/project/parrotsecurity",
+		"enabled": true
+      }
+    ],
+    "Europe":
+    [
+      {
+        "name": "garr",
+        "alias": ["garr","euro"],
+        "location":"Italy",
+        "provider":"GARR",
+        "speed": "(10 Gbps)",
+        "link": "http://garr-euro.archive.parrotsec.org/mirrors/parrot/iso",
+		"enabled": true
+      },
+      {
+        "name": "frozenbox",
+        "alias": ["archive","frozenbox","euro2"],
+        "location":"France",
+        "provider":"FrozenBox",
+        "speed": "(250 Mbps)",
+        "link": "http://archive.parrotsec.org/parrot/iso",
+		"enabled": true
+      },
+      {
+        "name": "rwth-aachen",
+        "alias": ["rwth-aachen","euro3"],
+        "location":"Germany",
+        "provider":"RWTH-Aachen",
+        "speed": "(20 Gbps)",
+        "link": "http://rwth-aachen-euro.archive.parrotsec.org/parrotsec/iso",
+		"enabled": true
+      },
+      {
+        "name": "warwick",
+        "alias": ["warwick","euro4"],
+        "location":"United Kingdom",
+        "provider":"Warwick",
+        "speed": "(1 Gbps)",
+        "link": "http://anorien.csc.warwick.ac.uk/mirrors/parrot/iso",
+		"enabled": true
+      },
+      {
+        "name": "nluug",
+        "alias": ["nluug","euro5"],
+        "location":"Netherlands",
+        "provider":"Nluug",
+        "speed": "(10 Gbps)",
+        "link": "http://nluug-euro.archive.parrotsec.org/os/Linux/distr/parrot/iso",
+		"enabled": true
+      },
+      {
+        "name": "onet",
+        "alias": ["onet","euro6"],
+        "location":"Poland",
+        "provider":"Onet",
+        "speed": "(10 Gbps)",
+        "link": "http://onet-euro.archive.parrotsec.org/pub/mirrors/parrot/iso",
+		"enabled": true
+      },
+      {
+        "name": "umu",
+        "alias": ["umu","euro7"],
+        "location":"Sweden",
+        "provider":"UMU",
+        "speed": "(10 Gbps)",
+        "link": "http://umu-euro.archive.parrotsec.org/mirror/parrotsec.org/parrot/iso",
+		"enabled": true
+      },
+      {
+        "name": "heanet",
+        "alias": ["heanet","euro8"],
+        "location":"Ireland",
+        "provider":"Heanet",
+        "speed": "(10 Gbps)",
+        "link": "http://ftp.heanet.ie/pub/parrotsec/iso",
+		"enabled": true
+      },
+      {
+        "name": "esslingen",
+        "alias": ["esslingen","euro9"],
+        "location":"Germany",
+        "provider":"Esslingen",
+        "speed": "(10 Gbps)",
+        "link": "https://esslingen-euro.archive.parrotsec.org/pub/Mirrors/archive.parrotsec.org/iso",
+		"enabled": true
+      },
+      {
+        "name": "dasa",
+        "alias": ["dasa1-euro","euro10"],
+        "location":"France",
+        "provider":"Dasaweb-eu1",
+        "speed": "(1 Gbps)",
+        "link": "http://dasa1-euro.archive.parrotsec.org/parrot/iso",
+		"enabled": true
+      },
+      {
+        "name": "dasa",
+        "alias": ["dasa2-euro","euro11"],
+        "location":"France",
+        "provider":"Dasaweb-eu2",
+        "speed": "(250 Mbps)",
+        "link": "http://dasa2-euro.archive.parrotsec.org/parrot/iso",
+		"enabled": true
+      },
+      {
+        "name": "uoc",
+        "alias": ["uoc","euro12"],
+        "location":"Greece",
+        "provider":"UoC",
+        "speed": "(1 Gbps)",
+        "link": "http://ftp.cc.uoc.gr/mirrors/linux/parrot/iso",
+		"enabled": true
+      },
+      {
+        "name": "babylon-fr",
+        "alias": ["babylon-fr","euro13"],
+        "location":"France",
+        "provider":"Babylon.network",
+        "speed": "(10 Gbps)",
+        "link": "http://fr.mirror.babylon.network/parrot/iso",
+		"enabled": true
+      },
+      {
+        "name": "babylon-nl",
+        "alias": ["babylon-nl","euro14"],
+        "location":"Netherlands",
+        "provider":"Babylon.network",
+        "speed": "(10 Gbps)",
+        "link": "http://nl.mirror.babylon.network/parrot/iso",
+		"enabled": true
+      },
+      {
+        "name": "dfn",
+        "alias": ["dfn"],
+        "location":"Germany",
+        "provider":"DFN-sf",
+        "speed": "(10 Gbps)",
+        "link": "http://dfn.dl.sourceforge.net/project/parrotsecurity",
+		"enabled": true
+      },
+      {
+        "name": "kent",
+        "alias": ["kent"],
+        "location":"United Kingdom",
+        "provider":"Kent-sf",
+        "speed": "(10 Gbps)",
+        "link": "http://kent.dl.sourceforge.net/project/parrotsecurity",
+		"enabled": true
+      },
+      {
+        "name": "vorboss",
+        "alias": ["vorboss"],
+        "location":"United Kingdom",
+        "provider":"Vorboss-sf",
+        "speed": "(10 Gbps)",
+        "link": "http://vorboss.dl.sourceforge.net/project/parrotsecurity",
+		"enabled": true
+      },
+      {
+        "name": "netcologne",
+        "alias": ["netcologne"],
+        "location":"Germany",
+        "provider":"Netcologne-sf",
+        "speed": "(2 Gbps)",
+        "link": "http://netcologne.dl.sourceforge.net/project/parrotsecurity",
+		"enabled": true
+      },
+      {
+        "name": "freefr",
+        "alias": ["freefr"],
+        "location":"France",
+        "provider":"Freefr-sf",
+        "speed": "(2 Gbps)",
+        "link": "http://freefr.dl.sourceforge.net/project/parrotsecurity",
+		"enabled": true
+      },
+      {
+        "name": "netix",
+        "alias": ["netix"],
+        "location":"Bulgaria",
+        "provider":"NetIX-sf",
+        "speed": "(?)",
+        "link": "http://netix.dl.sourceforge.net/project/parrotsecurity",
+		"enabled": true
+      },
+      {
+        "name": "ignum",
+        "alias": ["ignum"],
+        "location":"Czec Republic",
+        "provider":"Ignum-sf",
+        "speed": "(1 Gbps)",
+        "link": "http://ignum.dl.sourceforge.net/project/parrotsecurity",
+		"enabled": true
+      },
+      {
+        "name": "netassist",
+        "alias": ["netassist"],
+        "location":"Ukraine",
+        "provider":"Netassist-sf",
+        "speed": "(?)",
+        "link": "http://netassist.dl.sourceforge.net/project/parrotsecurity",
+		"enabled": true
+      }
+    ],
+    "South America":
+    [
+      {
+        "name": "cedia",
+        "alias": ["cedia","sam"],
+        "location":"Ecuador",
+        "provider":"CEDIA",
+        "speed": "(100 Mbps)",
+        "link": "http://mirror.cedia.org.ec/parrot/iso",
+		"enabled": true
+      },
+      {
+        "name": "uta",
+        "alias": ["uta","sam2"],
+        "location":"Ecuador",
+        "provider":"UTA",
+        "speed": "(100 Mbps)",
+        "link": "http://uta.archive.parrotsec.org/parrot/iso",
+		"enabled": true
+      },
+      {
+        "name": "ueb",
+        "alias": ["ueb","sam3"],
+        "location":"Ecuador",
+        "provider":"UEB",
+        "speed": "(100 Mbps)",
+        "link": "http://ueb-sam.archive.parrotsec.org/parrot/iso",
+		"enabled": true
+      },
+      {
+        "name": "ufpr",
+        "alias": ["ufpr"],
+        "location":"Brazil",
+        "provider":"UFPR/c3sl-sf",
+        "speed": "(10 Gbps)",
+        "link": "http://ufpr.dl.sourceforge.net/project/parrotsecurity",
+		"enabled": true
+      },
+      {
+        "name": "nbtelecom",
+        "alias": ["nbtelecom"],
+        "location":"Brazil",
+        "provider":"NBTelecom-sf",
+        "speed": "(?)",
+        "link": "http://nbtelecom.dl.sourceforge.net/project/parrotsecurity",
+		"enabled": true
+      }
+    ],
+    "Asia":
+    [
+      {
+        "name": "yandex",
+        "alias": ["yandex","asia"],
+        "location":"Russia",
+        "provider":"Yandex",
+        "speed": "(1 Gbps)",
+        "link": "http://yandex-asia.archive.parrotsec.org/mirrors/parrot/iso",
+		"enabled": true
+      },
+      {
+        "name": "amberit",
+        "alias": ["amberit","asia2"],
+        "location":"Bangladesh",
+        "provider":"Amberit",
+        "speed": "(1 Gbps)",
+        "link": "http://amberit-asia.archive.parrotsec.org/parrotsec/iso",
+		"enabled": true
+      },
+      {
+        "name": "nchc",
+        "alias": ["nchc","asia3"],
+        "location":"Taiwan",
+        "provider":"NCHC",
+        "speed": "(10 Gbps)",
+        "link": "http://free.nchc.org.tw/parrot/iso",
+		"enabled": true
+      },
+      {
+        "name": "0x",
+        "alias": ["0x","asia4"],
+        "location":"Singapore",
+        "provider":"0x",
+        "speed": "(10 Gbps)",
+        "link": "http://mirror.0x.sg/parrot-cd",
+		"enabled": true
+      },
+      {
+        "name": "ustc",
+        "alias": ["ustc","asia5"],
+        "location":"China",
+        "provider":"USTC",
+        "speed": "(1 Gbps)",
+        "link": "http://mirrors.ustc.edu.cn/parrot/iso",
+		"enabled": true
+      },
+      {
+        "name": "tuna",
+        "alias": ["tuna","asia6"],
+        "location":"China",
+        "provider":"TUNA Tsinghua",
+        "speed": "(2 Gbps)",
+        "link": "https://mirrors.tuna.tsinghua.edu.cn/parrot/iso",
+		"enabled": true
+      },
+      {
+        "name": "jaist",
+        "alias": ["jaist"],
+        "location":"Japan",
+        "provider":"Jaist-sf",
+        "speed": "(4 Gbps)",
+        "link": "http://jaist.dl.sourceforge.net/project/parrotsecurity",
+		"enabled": true
+      },
+      {
+        "name": "citylan",
+        "alias": ["citylan"],
+        "location":"Russia",
+        "provider":"CityLan-sf",
+        "speed": "(?)",
+        "link": "http://citylan.dl.sourceforge.net/project/parrotsecurity",
+		"enabled": true
+      }
+    ],
+    "Oceania":
+    [
+      {
+        "name": "lagoon",
+        "alias": ["lagoon","ocean"],
+        "location":"New Caledonia",
+        "provider":"Lagoon",
+        "speed": "(1 Gbps)",
+        "link": "http://lagoon-ocean.archive.parrotsec.org/pub/parrot/iso",
+		"enabled": true
+      },
+      {
+        "name": "internode",
+        "alias": ["internode"],
+        "location":"Australia",
+        "provider":"Internode-sf",
+        "speed": "(1 Gbps)",
+        "link": "http://internode.dl.sourceforge.net/project/parrotsecurity",
+		"enabled": true
+      }
+    ],
+    "Middle East":
+    [
+      {
+        "name": "asis",
+        "alias": ["asis","meast"],
+        "location":"Iran",
+        "provider":"ASIS",
+        "speed": "(1 Gbps)",
+        "link": "http://parrot.asis.io/parrot-iso",
+		"enabled": true
+      },
+      {
+        "name": "kaz",
+        "alias": ["kaz"],
+        "location":"Kazakistan",
+        "provider":"Kaz-sf",
+        "speed": "(?)",
+        "link": "http://kaz.dl.sourceforge.net/project/parrotsecurity",
+		"enabled": true
+      }
+    ],
+    "Africa":
+    [
+      {
+        "name": "tenet",
+        "alias": ["tenet"],
+        "location":"South Africa",
+        "provider":"Tenet-sf",
+        "speed": "(20 Gbps)",
+        "link": "http://tenet.dl.sourceforge.net/project/parrotsecurity",
+		"enabled": true
+      },
+      {
+		"name": "liquidtelecom",
+		"alias": ["liquidtelecom"],
+		"location":"Kenya",
+		"provider":"LiquidTelecom-sf",
+		"speed": "(1 Gbps)",
+		"link": "http://liquidtelecom.dl.sourceforge.net/project/parrotsecurity",
+		"enabled": true
+	 }
+    ]
+  }
+}
