@@ -81,12 +81,12 @@ function check_mirror($mirror_url)
 	stream_context_set_default(array('http' => array('method' => 'HEAD')));
 	$headers = get_headers($mirror_url)[0];
 	
-	// 200, 301, 302 accepted
-	if(substr($headers[0], 9, 3) == 200 || substr($headers[0], 9, 3) == 301 || substr($headers[0], 9, 3) == 302)
+	// 200, 302 accepted
+	if(substr($headers, 9, 3) == 200 || substr($headers, 9, 3) == 302)
 	{
 		return true; // mirroir is up
 	}
-	else if(preg_match('/sourceforge.net/',$mirror_url) && substr($headers[0], 9, 3) == 404) // allow '404' for sourceforge
+	else if(preg_match('/sourceforge.net/',$mirror_url) && substr($headers, 9, 3) == 404) // allow '404' for sourceforge
 	{
 		return true; //  mirror is up
 	}
