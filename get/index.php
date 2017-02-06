@@ -1,297 +1,170 @@
 <?php
-$mirror=end(explode("/", htmlentities($_GET["mirror"])));
-$file=htmlentities($_GET["file"]);
-if(in_array("download",$_GET))
+
+/*
+* func : error_recovery
+* do somethings if an error happened instead of a blank page.
+*/
+function error_recovery($message, $redirect)
 {
-	$download=htmlentities($_GET["download"]);
+	// new date
+	$date = new DateTime();
+	$date = $date->format("y:m:d h:i:s");
+
+	// append in error.log - server must have write permissions to file.
+	$result = file_put_contents('error.log',"[" . $date . "] - " . $message . "\n", FILE_APPEND);
+
+	if($redirect) //if notified, redirect back to download page
+	{
+		header('Location: /download.fx', true, 307);
+		exit;
+	}
 }
 
-if($_GET["mirror"]=="auto")
+/*
+* func : mirror_selector
+* return a mirror alias by using client country code.
+*/
+function mirror_selector($req_country_code)
 {
-	require "georedirect.php";
+	// get geo JSON data
+	$country_code_json = json_decode(file_get_contents("./datasource/geo.json"), TRUE);
+
+	if(!empty($country_code_json["Geo"][$req_country_code])) // ok
+	{
+		return $country_code_json["Geo"][$req_country_code][array_rand($country_code_json["Geo"][$req_country_code])];
+	}
+	else // possibly empty country code : SS, UM, VG ?
+	{
+		// log it, continue
+		error_recovery("No case found for country code : " . $req_country_code . ".", false);
+		return "rwth-aachen";  // return the main mirror
+	}
+
+	return $default_alias; // country code not found in JSON data
 }
 
-$files["sourceforge"][0]="https://sourceforge.net/projects/parrotsecurity/files";
-$files["sourceforge"][1]="sf";
 
-$files["cloudflare"][0]="http://cloudflare.archive.parrotsec.org/parrot/iso";
-$files["cloudflare"][1]="cloudflare";
-
-$files["garr"][0]="http://garr-euro.archive.parrotsec.org/mirrors/parrot/iso";
-$files["garr"][1]="garr";
-$files["euro"][0]="http://garr-euro.archive.parrotsec.org/mirrors/parrot/iso";
-$files["euro"][1]="garr";
-
-$files["archive"][0]="http://archive.parrotsec.org/parrot/iso";
-$files["archive"][1]="frozenbox";
-$files["frozenbox"][0]="http://archive.parrotsec.org/parrot/iso";
-$files["frozenbox"][1]="frozenbox";
-$files["euro2"][0]="http://archive.parrotsec.org/parrot/iso";
-$files["euro2"][1]="frozenbox";
-
-$files["rwth-aachen"][0]="http://rwth-aachen-euro.archive.parrotsec.org/parrotsec/iso";
-$files["rwth-aachen"][1]="rwth-aachen";
-$files["euro3"][0]="http://rwth-aachen-euro.archive.parrotsec.org/parrotsec/iso";
-$files["euro3"][1]="rwth-aachen";
-
-$files["warwick"][0]="http://anorien.csc.warwick.ac.uk/mirrors/parrot/iso";
-$files["warwick"][1]="warwick";
-$files["euro4"][0]="http://anorien.csc.warwick.ac.uk/mirrors/parrot/iso";
-$files["euro4"][1]="warwick";
-
-$files["nluug"][0]="http://nluug-euro.archive.parrotsec.org/os/Linux/distr/parrot/iso";
-$files["nluug"][1]="nluug";
-$files["euro5"][0]="http://nluug-euro.archive.parrotsec.org/os/Linux/distr/parrot/iso";
-$files["euro5"][1]="nluug";
-
-$files["onet"][0]="http://onet-euro.archive.parrotsec.org/pub/mirrors/parrot/iso";
-$files["onet"][1]="onet";
-$files["euro6"][0]="http://onet-euro.archive.parrotsec.org/pub/mirrors/parrot/iso";
-$files["euro6"][1]="onet";
-
-$files["umu"][0]="http://umu-euro.archive.parrotsec.org/mirror/parrotsec.org/parrot/iso";
-$files["umu"][1]="umu";
-$files["euro7"][0]="http://umu-euro.archive.parrotsec.org/mirror/parrotsec.org/parrot/iso";
-$files["euro7"][1]="umu";
-
-$files["heanet"][0]="http://ftp.heanet.ie/pub/parrotsec/iso";
-$files["heanet"][1]="heanet";
-$files["euro8"][0]="http://ftp.heanet.ie/pub/parrotsec/iso";
-$files["euro8"][1]="heanet";
-
-$files["esslingen"][0]="https://esslingen-euro.archive.parrotsec.org/pub/Mirrors/archive.parrotsec.org/iso";
-$files["esslingen"][1]="esslingen";
-$files["euro9"][0]="https://esslingen-euro.archive.parrotsec.org/pub/Mirrors/archive.parrotsec.org/iso";
-$files["euro9"][1]="esslingen";
-
-
-$files["dasa1-euro"][0]="http://dasa1-euro.archive.parrotsec.org/parrot/iso";
-$files["dasa1-euro"][1]="dasa";
-$files["euro10"][0]="http://dasa1-euro.archive.parrotsec.org/parrot/iso";
-$files["euro10"][1]="dasa";
-
-$files["dasa2-euro"][0]="http://dasa2-euro.archive.parrotsec.org/parrot/iso";
-$files["dasa2-euro"][1]="dasa";
-$files["euro11"][0]="http://dasa2-euro.archive.parrotsec.org/parrot/iso";
-$files["euro11"][1]="dasa";
-
-
-$files["uoc"][0]="http://ftp.cc.uoc.gr/mirrors/linux/parrot/iso";
-$files["uoc"][1]="uoc";
-$files["euro12"][0]="http://ftp.cc.uoc.gr/mirrors/linux/parrot/iso";
-$files["euro12"][1]="uoc";
-
-$files["babylon-fr"][0]="http://fr.mirror.babylon.network/parrot/iso";
-$files["babylon-fr"][1]="babylon-fr";
-$files["euro13"][0]="http://fr.mirror.babylon.network/parrot/iso";
-$files["euro13"][1]="babylon-fr";
-
-$files["babylon-nl"][0]="http://nl.mirror.babylon.network/parrot/iso";
-$files["babylon-nl"][1]="babylon-nl";
-$files["euro14"][0]="http://nl.mirror.babylon.network/parrot/iso";
-$files["euro14"][1]="babylon-nl";
-
-
-$files["mit"][0]="http://mit-usa.archive.parrotsec.org/parrot/iso";
-$files["mit"][1]="mit";
-$files["usa"][0]="http://mit-usa.archive.parrotsec.org/parrot/iso";
-$files["usa"][1]="mit";
-
-$files["mtu"][0]="http://lug.mtu.edu/parrot/iso";
-$files["mtu"][1]="mtu";
-$files["usa2"][0]="http://lug.mtu.edu/parrot/iso";
-$files["usa2"][1]="mtu";
-
-$files["jmu"][0]="http://mirror.jmu.edu/pub/parrot/iso";
-$files["jmu"][1]="jmu";
-$files["usa3"][0]="http://mirror.jmu.edu/pub/parrot/iso";
-$files["usa3"][1]="jmu";
-
-$files["clarkson"][0]="http://mirror.clarkson.edu/parrot/iso";
-$files["clarkson"][1]="clarkson";
-$files["usa4"][0]="http://mirror.clarkson.edu/parrot/iso";
-$files["usa4"][1]="clarkson";
-
-$files["berkeley"][0]="http://mirrors.ocf.berkeley.edu/parrot/iso";
-$files["berkeley"][1]="berkeley";
-$files["usa5"][0]="http://mirrors.ocf.berkeley.edu/parrot/iso";
-$files["usa5"][1]="berkeley";
-
-$files["cedia"][0]="http://mirror.cedia.org.ec/parrot/iso";
-$files["cedia"][1]="cedia";
-$files["sam"][0]="http://mirror.cedia.org.ec/parrot/iso";
-$files["sam"][1]="cedia";
-
-$files["uta"][0]="http://uta.archive.parrotsec.org/parrot/iso";
-$files["uta"][1]="uta";
-$files["sam2"][0]="http://uta.archive.parrotsec.org/parrot/iso";
-$files["sam2"][1]="uta";
-
-$files["ueb"][0]="http://ueb-sam.archive.parrotsec.org/parrot/iso";
-$files["ueb"][1]="ueb";
-$files["sam3"][0]="http://ueb-sam.archive.parrotsec.org/parrot/iso";
-$files["sam3"][1]="ueb";
-
-$files["yandex"][0]="http://yandex-asia.archive.parrotsec.org/mirrors/parrot/iso";
-$files["yandex"][1]="yandex";
-$files["asia"][0]="http://yandex-asia.archive.parrotsec.org/mirrors/parrot/iso";
-$files["asia"][1]="yandex";
-
-$files["amberit"][0]="http://amberit-asia.archive.parrotsec.org/parrotsec/iso";
-$files["amberit"][1]="amberit";
-$files["asia2"][0]="http://amberit-asia.archive.parrotsec.org/parrotsec/iso";
-$files["asia2"][1]="amberit";
-
-$files["nchc"][0]="http://free.nchc.org.tw/parrot/iso";
-$files["nchc"][1]="nchc";
-$files["asia3"][0]="http://free.nchc.org.tw/parrot/iso";
-$files["asia3"][1]="nchc";
-
-$files["0x"][0]="http://mirror.0x.sg/parrot-cd";
-$files["0x"][1]="0x";
-$files["asia4"][0]="http://mirror.0x.sg/parrot-cd";
-$files["asia4"][1]="0x";
-
-$files["ustc"][0]="http://mirrors.ustc.edu.cn/parrot/iso";
-$files["ustc"][1]="yfgao";
-$files["asia5"][0]="http://mirrors.ustc.edu.cn/parrot/iso";
-$files["asia5"][1]="yfgao";
-
-$files["tuna"][0]="https://mirrors.tuna.tsinghua.edu.cn/parrot/iso";
-$files["tuna"][1]="tuna";
-$files["asia6"][0]="https://mirrors.tuna.tsinghua.edu.cn/parrot/iso";
-$files["asia6"][1]="tuna";
-
-$files["asis"][0]="http://parrot.asis.io/parrot-iso";
-$files["asis"][1]="asis";
-$files["meast"][0]="http://parrot.asis.io/parrot-iso";
-$files["meast"][1]="asis";
-
-$files["lagoon"][0]="http://lagoon-ocean.archive.parrotsec.org/pub/parrot/iso";
-$files["lagoon"][1]="lagoon";
-$files["ocean"][0]="http://lagoon-ocean.archive.parrotsec.org/pub/parrot/iso";
-$files["ocean"][1]="lagoon";
-
-$files["aptus"][0]="http://mirror.aptus.co.tz/pub/parrot/iso";
-$files["aptus"][1]="aptus";
-$files["africa"][0]="http://mirror.aptus.co.tz/pub/parrot/iso";
-$files["africa"][1]="aptus";
-
-
-
-
-//-------------------------------------------------
-//-------------------------------------------------
-//------                                     ------
-//------          sourceforge stuff          ------
-//------                                     ------
-//-------------------------------------------------
-//-------------------------------------------------
-
-
-$rname = "citylan";
-$files[$rname][0]="http://".$rname.".dl.sourceforge.net/project/parrotsecurity/";
-$files[$rname][1]="sf";
-
-$rname = "colocrossing";
-$files[$rname][0]="http://".$rname.".dl.sourceforge.net/project/parrotsecurity/";
-$files[$rname][1]="sf";
-
-$rname = "dfn";
-$files[$rname][0]="http://".$rname.".dl.sourceforge.net/project/parrotsecurity/";
-$files[$rname][1]="sf";
-
-$rname = "freefr";
-$files[$rname][0]="http://".$rname.".dl.sourceforge.net/project/parrotsecurity/";
-$files[$rname][1]="sf";
-
-$rname = "ignum";
-$files[$rname][0]="http://".$rname.".dl.sourceforge.net/project/parrotsecurity/";
-$files[$rname][1]="sf";
-
-$rname = "internode";
-$files[$rname][0]="http://".$rname.".dl.sourceforge.net/project/parrotsecurity/";
-$files[$rname][1]="sf";
-
-$rname = "jaist";
-$files[$rname][0]="http://".$rname.".dl.sourceforge.net/project/parrotsecurity/";
-$files[$rname][1]="sf";
-
-$rname = "kaz";
-$files[$rname][0]="http://".$rname.".dl.sourceforge.net/project/parrotsecurity/";
-$files[$rname][1]="sf";
-
-$rname = "kent";
-$files[$rname][0]="http://".$rname.".dl.sourceforge.net/project/parrotsecurity/";
-$files[$rname][1]="sf";
-
-$rname = "liquidtelecom";
-$files[$rname][0]="http://".$rname.".dl.sourceforge.net/project/parrotsecurity/";
-$files[$rname][1]="sf";
-
-$rname = "nbtelecom";
-$files[$rname][0]="http://".$rname.".dl.sourceforge.net/project/parrotsecurity/";
-$files[$rname][1]="sf";
-
-$rname = "netassist";
-$files[$rname][0]="http://".$rname.".dl.sourceforge.net/project/parrotsecurity/";
-$files[$rname][1]="sf";
-
-$rname = "netcologne";
-$files[$rname][0]="http://".$rname.".dl.sourceforge.net/project/parrotsecurity/";
-$files[$rname][1]="sf";
-
-$rname = "netix";
-$files[$rname][0]="http://".$rname.".dl.sourceforge.net/project/parrotsecurity/";
-$files[$rname][1]="sf";
-
-$rname = "pilotfiber";
-$files[$rname][0]="http://".$rname.".dl.sourceforge.net/project/parrotsecurity/";
-$files[$rname][1]="sf";
-
-$rname = "superb-dca2";
-$files[$rname][0]="http://".$rname.".dl.sourceforge.net/project/parrotsecurity/";
-$files[$rname][1]="sf";
-
-$rname = "superb-dca3";
-$files[$rname][0]="http://".$rname.".dl.sourceforge.net/project/parrotsecurity/";
-$files[$rname][1]="sf";
-
-$rname = "superb-sea2";
-$files[$rname][0]="http://".$rname.".dl.sourceforge.net/project/parrotsecurity/";
-$files[$rname][1]="sf";
-
-$rname = "tenet";
-$files[$rname][0]="http://".$rname.".dl.sourceforge.net/project/parrotsecurity/";
-$files[$rname][1]="sf";
-
-$rname = "ufpr";
-$files[$rname][0]="http://".$rname.".dl.sourceforge.net/project/parrotsecurity/";
-$files[$rname][1]="sf";
-
-$rname = "vorboss";
-$files[$rname][0]="http://".$rname.".dl.sourceforge.net/project/parrotsecurity/";
-$files[$rname][1]="sf";
-
-
-
-
-
-//if request is valid
-if($files["$mirror"][0] != "" && $file != "")
+/*
+* func : update_stats
+* update the stats table
+*/
+function update_stats($mirror_name)
 {
-//if request comes from download page (to avoid torrent requests to be counted)
-//	if($download != "")
-//	{
-		$db = new SQLite3("/www/parrotsec.org/get/db/db.sqlite");
-		$db->query("UPDATE stats SET count=count+1 WHERE mirror='total';");
-		$db->query("UPDATE stats SET count=count+1 WHERE mirror='".$files[$mirror][1]."';");
-		$db->close();
-//	}
+	// get stats JSON data
+	$stats_json = json_decode(file_get_contents("./datasource/stats.json"), TRUE);
 
-	header("Location: ".$files["$mirror"][0]."/".$file, true, 307);
-	die();
+	// add in stats
+	if(!is_null($stats_json["Stats"][$mirror_name])) // for existing mirror name
+	{
+		$stats_json["Stats"][$mirror_name] += 1;
+	}
+	else // for new mirror
+	{
+		$stats_json["Stats"][$mirror_name] = 1;
+	}
+
+	// increment the total
+	$stats_json["Stats"]["total"] += 1;
+
+	// save JSON stats
+	file_put_contents("./datasource/stats.json", json_encode($stats_json, JSON_PRETTY_PRINT));
+
 }
 
+/*
+* func : check_mirror
+* check if the destination mirror is up 
+*/
+function check_mirror($mirror_url) 
+{
+	// send an head request to download url
+	stream_context_set_default(array('http' => array('method' => 'HEAD')));
+	$headers = get_headers($mirror_url);
+	
+	// 200, 301, 302 accepted
+	if(substr($headers[0], 9, 3) == 200 || substr($headers[0], 9, 3) == 301 || substr($headers[0], 9, 3) == 302)
+	{
+		return true; // mirroir is up
+	}
+	else if(preg_match('/sourceforge.net/',$mirror_url) && substr($headers[0], 9, 3) == 404) // allow '404' for sourceforge
+	{
+		return true; //  mirror is up
+	}
+	else // 4xx,5xx, and others
+	{
+		return false; // mirror is down
+	}
+
+}
+
+/*
+* func : mirror_redirector
+* redirect client to selected mirror download link
+*/
+function mirror_redirector($req_mirror, $req_file)
+{
+	// get mirrors JSON data
+	$mirrors_json = json_decode(file_get_contents("./datasource/mirrors.json"), TRUE);
+
+	// get an download link from mirror file
+	foreach ($mirrors_json["Mirrors"] as $continent => $mirror)
+	{
+		foreach ($mirror as $parameters)
+		{
+			if(in_array($req_mirror, $parameters["alias"]))
+			{
+				// build the download link
+				$download_link = $parameters["link"] . "/" .$req_file;		
+				
+				// check the mirror status
+				if(check_mirror($download_link)) // mirror is up
+				{
+					// update the stats 
+					update_stats($parameters["name"]);
+				
+					// redirect the client.
+					header("Location: ".$download_link, true, 307);
+					exit;
+				}
+				else // mirror is down
+				{
+					// log it, continue
+					error_recovery("An error occurred with download url : " . $download_link, false);
+
+					// use the main mirror
+					mirror_redirector("rwth-aachen", $req_file);
+				}
+			}
+		}
+	}
+
+	// log it, redirect to download page
+	error_recovery("Mirror alias " . $req_mirror . " not found in mirrors.json.", true);
+}
+
+
+/*
+* entry point
+* get, check the parameters, and processing
+*/
+if(isset($_GET["mirror"]) && isset($_GET["file"]))
+{
+	// get the parameters
+	$req_mirror = htmlentities($_GET["mirror"]);
+	$req_file = htmlentities($_GET["file"]);
+
+	if($req_mirror == "auto")
+	{
+		$req_mirror = mirror_selector(htmlentities($_SERVER["HTTP_CF_IPCOUNTRY"]));
+	}
+	
+	// select the mirror and redirect the client.
+	mirror_redirector($req_mirror, $req_file);
+}
+else // bad parameters
+{
+	// log it, redirect to download page
+	error_recovery("Bad request parameters.", true);
+}
 
 ?>
