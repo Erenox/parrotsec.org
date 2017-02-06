@@ -79,7 +79,7 @@ function check_mirror($mirror_url)
 {
 	// send an head request to download url
 	stream_context_set_default(array('http' => array('method' => 'HEAD')));
-	$headers = get_headers($mirror_url);
+	$headers = get_headers($mirror_url)[0];
 	
 	// 200, 301, 302 accepted
 	if(substr($headers[0], 9, 3) == 200 || substr($headers[0], 9, 3) == 301 || substr($headers[0], 9, 3) == 302)
