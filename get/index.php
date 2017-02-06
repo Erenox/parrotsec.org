@@ -8,7 +8,7 @@ function error_recovery($message, $redirect)
 {
 	// new date
 	$date = new DateTime();
-	$date = $date->format("y:m:d h:i:s");
+	$date = $date->format("y/m/d h:i:s");
 
 	// append in error.log - server must have write permissions to file.
 	$result = file_put_contents('error.log',"[" . $date . "] - " . $message . "\n", FILE_APPEND);
