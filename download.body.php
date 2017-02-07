@@ -14,10 +14,7 @@ function mirrorSelector($file)
 		foreach ($mirror as $params)
 		{
 			if($params["enabled"])
-			{
-				$alias = $params["alias"][0];
-    			echo "<option value=\"/get?mirror=$alias&file=$file\">".$continent." - ".$params["location"]." - ".$params["provider"]." ".$params["speed"]."</option>";
-			}
+    			echo "<option value=\"/get?mirror=" . $params["alias"][0] . "&file=" . $file . "\">".$continent." - ".$params["location"]." - ".$params["provider"]." ".$params["speed"]."</option>";
 		}
 		echo "</optgroup>";
 	}
@@ -141,7 +138,7 @@ function mirrorSelector($file)
                                     <h4>Raspberry Pi</h4>
                                     <form target="_blank" onSubmit="this.action = document.getElementById('rpi').value" method="post">
 									  <p style=\"color:#0a0a0a\">Select a mirror server</p>
-									  <select style='width:300px' id="rpi"> <?php mirrorSelector("parrotsec-3.4-armhf-rpi-1.img.tar.xz"); ?> </select>
+									  <select style='width:300px' id="rpi"> <?php mirrorSelector("arm/parrotsec-3.4-armhf-rpi-1/"); ?> </select>
                                         <br>
                                         <br>
 

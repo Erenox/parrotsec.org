@@ -6,7 +6,7 @@ Feel free to make your contribution
 
 # alternative mirror manager includes :
  - Separation of data / code layer.
- - Maintainability improvements
+ - Maintainability improvements.
  - Better mirror management and rendering via mirrors.json.
  - Possibility to enable / disable mirrors.
  - Errors handling instead of the blank page.

@@ -1,5 +1,7 @@
 <?php
 
+define("DEFAULT_MIRROR", "frozenbox");
+
 /*
 * func : error_recovery
 * do somethings if an error happened instead of a blank page.
@@ -11,7 +13,7 @@ function error_recovery($message, $redirect)
 	$date = $date->format("y/m/d h:i:s");
 
 	// append in error.log - server must have write permissions to file.
-	$result = file_put_contents('error.log',"[" . $date . "] - " . $message . "\n", FILE_APPEND);
+	file_put_contents('error.log',"[" . $date . "] - " . $message . "\n", FILE_APPEND);
 
 	if($redirect) //if notified, redirect back to download page
 	{
@@ -37,10 +39,10 @@ function mirror_selector($req_country_code)
 	{
 		// log it, continue
 		error_recovery("No case found for country code : " . $req_country_code . ".", false);
-		return "rwth-aachen";  // return the main mirror
+		return DEFAULT_MIRROR;  // return the main mirror
 	}
 
-	return $default_alias; // country code not found in JSON data
+	return DEFAULT_MIRROR; // country code not found in JSON data
 }
 
 
@@ -80,7 +82,7 @@ function check_mirror($mirror_url)
 	// send an head request to download url
 	stream_context_set_default(array('http' => array('method' => 'HEAD')));
 	$headers = get_headers($mirror_url)[0];
-	
+
 	// 200, 302 accepted
 	if(substr($headers, 9, 3) == 200 || substr($headers, 9, 3) == 302)
 	{
@@ -128,11 +130,20 @@ function mirror_redirector($req_mirror, $req_file)
 				}
 				else // mirror is down
 				{
-					// log it, continue
-					error_recovery("An error occurred with download url : " . $download_link, false);
+					if($req_mirror != DEFAULT_MIRROR)
+					{
+						// log it, continue
+						error_recovery("An error occurred with download url : " . $download_link, false);
 
-					// use the main mirror
-					mirror_redirector("rwth-aachen", $req_file);
+						// use the default mirror
+						mirror_redirector(DEFAULT_MIRROR, $req_file);
+					}
+					else // prevent infinte reload (default mirror is down)
+					{
+						// log it, redirect
+						error_recovery("An error occurred with download url : " . $download_link, true);
+					}
+					
 				}
 			}
 		}

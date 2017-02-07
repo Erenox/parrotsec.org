@@ -5,7 +5,7 @@
     [
       {
         "name": "sf",
-        "alias": ["sourceforge",""],
+        "alias": ["sourceforge"],
         "location":"Mirrors",
         "provider":"SourceForge",
         "speed": "(*)",
@@ -195,7 +195,7 @@
         "location":"Germany",
         "provider":"Esslingen",
         "speed": "(10 Gbps)",
-        "link": "https://esslingen-euro.archive.parrotsec.org/pub/Mirrors/archive.parrotsec.org/iso",
+        "link": "http://esslingen-euro.archive.parrotsec.org/pub/Mirrors/archive.parrotsec.org/iso",
 		"enabled": true
       },
       {
