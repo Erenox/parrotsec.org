@@ -13,3 +13,10 @@ Feel free to make your contribution
  - Timed error log file : error.log.
  - Dead mirrors links detection and redirection.
  - No longer dependent of the database.
+
+
+don't forget to set up the writing rights to :
+
+/get/error.log
+/get/datasource/stats.json
+
