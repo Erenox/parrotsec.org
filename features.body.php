@@ -36,9 +36,9 @@
                         <ul>
                             <li>CPU: at least 1Ghz dual core cpu</li>
                             <li>ARCH: 32bit, 64bit and ARMhf</li>
-                            <li>RAM: minimum 256Mb - 2048Mb suggested</li>
+                            <li>RAM: minimum 384Mb - 2048Mb suggested</li>
                             <li>GPU: No graphic acceleration required</li>
-                            <li>STORAGE lite/core: 4GB / 8GB</li>
+                            <li>STORAGE lite: 8GB</li>
                             <li>STORAGE Full: 16GB</li>
                             <li>BOOT: Legacy bios or UEFI</li>
                         </ul>
@@ -78,7 +78,7 @@
                         Download the Cloud ISO image from our download page and install it on your server.
                         Or buy a VPS with Parrot Cloud pre-installed,<br>
                         we offer several plans to suit your needs.<br>
-                        <a href="https://dasaweb.net/cart.php?gid=18" target="_blank" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--accent mdl-color-text--accent-contrast">Buy a VPS on our datacenters</a>
+                        <a href="https://core.dasaweb.net/cart.php?gid=18" target="_blank" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--accent mdl-color-text--accent-contrast">Buy a VPS on our datacenters</a>
 
                         <br>
                         <h5>Parrot Cloud Script</h5>
@@ -103,7 +103,7 @@
                         one of the most important GNU/Linux distributions in the Digital Forensics world.<br>
                         <br>
                         One of our purposes is to provide the best forensics enviromnent ever seen in a security distro,
-                        infact the entire system is hardened to not perform device automounts and to provide all the
+                        in fact the entire system is hardened to not perform device automounts and to provide all the
                         tools needed to do forensic acquisitions and evidence identifications in a safe comprehensive and portable virtual lab.<br>
                         <br>
                         <br>
@@ -130,7 +130,7 @@
                         protect your confidential data and defend your privacy.<br>
                         <br>
                         Parrot includes several cryptographic front-ends to work
-                        both with symmetric and asymmetric encryption, infact it
+                        both with symmetric and asymmetric encryption, in fact it
                         natively supports volumes encryption with LUKS, TrueCrypt, VeraCrypt
                         and the hidden TrueCrypt/VeraCrypt volumes with nested algorythms support.<br>
                         <br>
@@ -159,7 +159,7 @@
                     <div class="mdl-card__supporting-text">
                         Your privacy is the most valuable thing you have in your digital life
                         and the whole Parrot Team is exaggeratedly paranoid when it comes to users privacy,
-                        infact our system doesn't contain tracking systems, and it is hardened in deep to
+                        in fact our system doesn't contain tracking systems, and it is hardened in deep to
                         protect users from prying eyes.<br>
                         <br>
                         Parrot has developed and implemented several tricks and softwares to achieve this goal,
